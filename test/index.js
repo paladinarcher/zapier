@@ -1,17 +1,27 @@
-require('should');
+const should = require('should');
 
 const zapier = require('zapier-platform-core');
 
-// Use this to make test calls into your app:
 const App = require('../index');
 const appTester = zapier.createAppTester(App);
 
 describe('My App', () => {
 
-  it('should test something', (done) => {
-    const x = 1;
-    x.should.eql(1);
-    done();
+
+  it('should get hello', (done) => {
+    const bundle = {};
+
+    appTester(App.triggers.aarc.operation.perform, bundle)
+      .then(results => {
+        should(results.length).above(0);
+
+        const firstResult = results[0];
+        console.log('test result: ', firstResult)
+        should(results[0].message).eql('Success');
+
+        done();
+      })
+      .catch(done);
   });
 
 });
