@@ -1,4 +1,29 @@
-# zapier
+# Zapier example application
+
+## Setup
+Install the Zapier CLI tool. This can be done globally, like this:
+
+```
+npm install -g zapier-platform-cli
+```
+
+Alternatively, if running on a Linux host, it can be installed locally if it is added as a development dependency:
+
+```
+$ npm install --save-dev zapier-platform-cli
+```
+
+Note, by default this project has already added zapier-platform-cli to its development dependencies.
+
+If using the local copy of zapier-platform-cli, add the following to the $HOME/.bashrc, 
+
+```
+function __zapier_platform_cli {
+    node ./node_modules/zapier-platform-cli $@
+}
+alias zapier="__zapier_platform_cli"
+```
+
 ## How to test zapier to aarc api functionality
 1) start an aarc server locally using the fireDrum branch from the aarc repository
 * https://github.com/paladinarcher/aarc.git

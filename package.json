@@ -1,10 +1,9 @@
 {
-  "name": "zapier-platform-example-app-minimal",
+  "name": "zapier-example-app",
   "version": "1.0.0",
-  "description": "An example app for the Zapier platform.",
-  "repository": "zapier/zapier-platform-example-app-minimal",
-  "homepage": "https://zapier.com/",
-  "author": "Bryan Helmig <bryan@zapier.com>",
+  "description": "An example Zapier app for Paladin and Archer.",
+  "repository": "https://github.com/paladinarcher/zapier",
+  "author": "Support <support@paladinarcher.com>",
   "license": "BSD-3-Clause",
   "main": "index.js",
   "scripts": {
@@ -19,6 +18,7 @@
   },
   "devDependencies": {
     "mocha": "^5.2.0",
-    "should": "^13.2.0"
+    "should": "^13.2.0",
+    "zapier-platform-cli": "^7.6.1"
   }
 }
