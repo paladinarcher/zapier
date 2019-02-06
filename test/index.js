@@ -5,7 +5,7 @@ const zapier = require('zapier-platform-core');
 const App = require('../index');
 const appTester = zapier.createAppTester(App);
 
-describe('My App', () => {
+describe('Paladin and Archer Zapier Example', () => {
 
 
   it('should get hello', (done) => {

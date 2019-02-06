@@ -36,4 +36,4 @@ alias zapier="__zapier_platform_cli"
 4) switch to the example branch
 * git checkout example
 5) run the command `zapier test`
-* the aarc server should return a data object with the name `Developer Level API`
+* the aarc server should return a data object with the name `Zapier API`
