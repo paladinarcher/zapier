@@ -6,19 +6,18 @@ const App = require('../index');
 const appTester = zapier.createAppTester(App);
 
 describe('Testing the Paladin and Archer Zapier Example', () => {
-
+//it.only to use just one it
   it('creates should hello', (done) => {
     const bundle = {};
-	console.log(App);
 
     appTester(App.creates.aarcCreates.operation.perform, bundle)
       .then(results => {
 		console.log("start of creates");
-        should(results.length).above(0);
+		console.log(results);
 
-        const firstResult = results[0];
+        const firstResult = results;
         console.log('test result: ', firstResult)
-        should(results[0].message).eql('Success');
+        should(results.message).eql('Success');
 
         done();
       })
