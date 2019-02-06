@@ -1,4 +1,5 @@
 const aarcHello = require('./triggers/aarchelloworld.js');
+const aarcHelloCreates = require('./creates/aarcHelloCreates.js');
 
 // We can roll up all our behaviors in an App.
 const App = {
@@ -29,6 +30,7 @@ const App = {
 
   // If you want your creates to show up, you better include it here!
   creates: {
+    [aarcHelloCreates.key]: aarcHelloCreates
   }
 };
 
