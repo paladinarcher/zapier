@@ -19,7 +19,7 @@ const subscribeHook = (z, bundle) => {
 	};
 	
 	// You may return a promise or a normal data structure from any perform method.
-	return z.request('http://localhost:8888/api/v1/hook/subscribe', httpOptions)
+	return z.request('http://stage.developerlevel.com:9999/api/v1/hook/subscribe', httpOptions)
 		.then((response) => {
 				z.console.log("The response from API webhook subscribe: ")
 				z.console.log(JSON.parse(response.content));
@@ -46,7 +46,7 @@ const unsubscribeHook = (z, bundle) => {
 
 const getAarcStatus = (z, bundle) => {
 	const options = {
-		url: 'http://localhost:8888/api/v1',
+		url: 'http://stage.developerlevel.com:9999/api/v1',
 		params: {
 			style: bundle.inputData.style // Not used
 		}
@@ -58,9 +58,9 @@ const getAarcStatus = (z, bundle) => {
 
 const getFallbackAarcStatus = (z, bundle) => {
 	const options = {
-		url: 'http://localhost:8888/api/v1',
+		url: 'http://stage.developerlevel.com:9999/api/v1',
 		params: {
-		  style: bundle.inputData.style // Not used
+			style: bundle.inputData.style // Not used
 		}
 	};
 	

@@ -1,7 +1,6 @@
 const aarcPollTrigger = (z, bundle) => {
 	const responsePromise = z.request({
-		// url: 'http://stage.paladinarcher.com:9999/api/v1'
-		url: 'http://localhost:8888/api/v1'
+		url: 'http://stage.paladinarcher.com:9999/api/v1'
 	});
 
 	return responsePromise
