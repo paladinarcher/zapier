@@ -1,8 +1,9 @@
 const aarcHelloCreates = (z, bundle) => {
 	return {
-        url: 'http://stage.paladinarcher.com:9999/api/v1/receiveData',
+        url: 'http://localhost:8888/api/v1/receiveData',
         method: 'POST',
-        body: JSON.stringify({
+
+        json: JSON.stringify({
           name: "name",
           directions: "directions",
           authorId: "authorId",
@@ -18,18 +19,6 @@ const aarcHelloCreates = (z, bundle) => {
         }
       };
 }
-
-//	console.log("hello aarcHelloCreates");
-//  const responsePromise = z.request({
-//	  url: 'http://stage.paladinarcher.com:9999/api/v1/receiveData'
-//  });
-//  return responsePromise
-//    .then(response => {
-//		console.log(response.content);
-//		return JSON.parse(response.content)[0];
-//		//return {foo: "bar"};
-//	});
-//};
 
 module.exports = {
   key: 'aarcCreates',

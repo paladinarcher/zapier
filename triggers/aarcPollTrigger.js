@@ -1,21 +1,19 @@
 const aarcPollTrigger = (z, bundle) => {
-	z.console.log('aarcPollTrigger called');
-	
 	const responsePromise = z.request({
-		url: 'http://stage.paladinarcher.com:9999/api/v1'
+		// url: 'http://stage.paladinarcher.com:9999/api/v1'
+		url: 'http://localhost:8888/api/v1'
 	});
 
 	return responsePromise
 		.then(response => {
-			const responseContent = JSON.parse(response.content);
-			z.console.log('Response recieved from aarcPollTrigger');
-			return responseContent;
+			// Response from AARC URL above
+			return JSON.parse(response.content);
 		});
 };
 
 module.exports = {
-	key: 'aarc_status_polling',
-	noun: 'AarcStatusPolling',
+	key: 'aarc_poll_trigger',
+	noun: 'AarcStatusPollingTrigger',
 
 	display: {
 		label: 'Get AARC Status via Polling',

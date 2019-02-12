@@ -1,30 +1,32 @@
 const subscribeHook = (z, bundle) => {
-	// `z.console.log()` is similar to `console.log()`.
-	z.console.log('aarc subscribeHook');
+	z.console.log('Zapier application subscribeHook function entry');
 	
-	// bundle.targetUrl has the Hook URL this app should call when a recipe is created.
+	// bundle.targetUrl has the Hook URL AARC should call when the event is fired.
 	const data = {
 		url: bundle.targetUrl,
-		style: bundle.inputData.style
+		style: bundle.inputData.style // Just more data; not used here
 	};
 	
 	// You can build requests and our client will helpfully inject all the variables
-	// you need to complete. You can also register middleware to control this.
-	const options = {
-		url: 'http://stage.paladinarcher.com:9999/api/v1/hook/subscribe',
+	// you need to complete.
+	// See: https://github.com/zapier/zapier-platform-cli#http-request-options
+	const httpOptions = {
+		headers: {
+			'my-header': 'some value',
+		},
 		method: 'POST',
-		body: JSON.stringify(data)
+		json: JSON.stringify(data) // Don't use the "body" property here
 	};
 	
 	// You may return a promise or a normal data structure from any perform method.
-	return z.request(options)
+	return z.request('http://localhost:8888/api/v1/hook/subscribe', httpOptions)
 		.then((response) => {
-				const content = "subscribeHook " +	JSON.parse(response.content);
-				z.console.log(content);
-				return content;
+				z.console.log("The response from API webhook subscribe: ")
+				z.console.log(JSON.parse(response.content));
+				return JSON.parse(response.content);
 		});
 };
-	
+
 const unsubscribeHook = (z, bundle) => {
 	// bundle.subscribeData contains the parsed response JSON from the subscribe
 	// request made initially.
@@ -33,7 +35,7 @@ const unsubscribeHook = (z, bundle) => {
 	// You can build requests and our client will helpfully inject all the variables
 	// you need to complete. You can also register middleware to control this.
 	const options = {
-		url: `http://stage.paladinarcher.com:9999/api/v1/hook/unsubscribe${hookId}`,
+		url: `http://stage.paladinarcher.com:9999/api/v1/hook/unsubscribe?hookId=${hookId}`,
 		method: 'DELETE',
 	};
 
@@ -43,19 +45,27 @@ const unsubscribeHook = (z, bundle) => {
 };
 
 const getAarcStatus = (z, bundle) => {
-	z.console.log(bundle);
-	return [{
-		id: 0,
-		message: bundle.data.message,
-	}];
+	const options = {
+		url: 'http://localhost:8888/api/v1',
+		params: {
+			style: bundle.inputData.style // Not used
+		}
+	};
+	
+	return z.request(options)
+		.then((response) => JSON.parse(response.content));
 }
 
 const getFallbackAarcStatus = (z, bundle) => {
-	z.console.log(bundle);
-	return [{
-		id: 0,
-		message: bundle.data.message,
-	}];
+	const options = {
+		url: 'http://localhost:8888/api/v1',
+		params: {
+		  style: bundle.inputData.style // Not used
+		}
+	};
+	
+	return z.request(options)
+		.then((response) => JSON.parse(response.content));
 }
 
 // We recommend writing your triggers separate like this and rolling them
@@ -91,12 +101,14 @@ module.exports = {
 		// from the API, Zapier will fallback to this hard-coded sample. It should reflect the data structure of
 		// returned records, and have obviously dummy values that we can show to any user.
 		sample: {
-			id: 1,
-			createdAt: 1472069465,
-			name: 'Best Spagetti Ever',
-			authorId: 1,
-			directions: '1. Boil Noodles\n2.Serve with sauce',
-			style: 'italian',
+			id: 0,
+			status: 200,
+			message: "Success",
+			data: { 
+				name: 'Paladin and Archer Zapier Test',
+				version: '1.0.0.0',
+				now: 'February 11th 2019, 7:42:17 pm'
+			}
 		},
 
 		// If the resource can have fields that are custom on a per-user basis, define a function to fetch the custom
@@ -105,11 +117,9 @@ module.exports = {
 		// Alternatively, a static field definition should be provided, to specify labels for the fields
 		outputFields: [
 			{key: 'id', label: 'ID'},
-			{key: 'createdAt', label: 'Created At'},
-			{key: 'name', label: 'Name'},
-			{key: 'directions', label: 'Directions'},
-			{key: 'authorId', label: 'Author ID'},
-			{key: 'style', label: 'Style'},
+			{key: 'status', label: 'Status Code'},
+			{key: 'messsage', label: 'Message'},
+			{key: 'data', label: 'Data'},
 		]
 	}
 };
